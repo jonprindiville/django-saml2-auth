@@ -151,7 +151,7 @@ def exception_handler(
             HttpResponse: Rendered error page with details
         """
         logger = logging.getLogger(__name__)
-        logger.debug(exc)
+        logger.debug(f"Handling exception from {function.__qualname__}", exc_info=exc, stack_info=True)
 
         context: Optional[Dict[str, Any]] = exc.extra if isinstance(exc, SAMLAuthError) else {}
         if isinstance(exc, SAMLAuthError) and exc.extra:
