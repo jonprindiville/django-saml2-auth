@@ -146,9 +146,8 @@ def acs(request: HttpRequest):
         return HttpResponseRedirect(frontend_url + query)
 
     if target_user.is_active:
-        model_backend = "django.contrib.auth.backends.ModelBackend"
-
-        login(request, target_user, model_backend)
+        target_user.backend = "django.contrib.auth.backends.ModelBackend"
+        login(request, target_user)
 
         after_login_trigger = dictor(saml2_auth_settings, "TRIGGER.AFTER_LOGIN")
         if after_login_trigger:
